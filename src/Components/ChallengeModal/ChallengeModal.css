@@ -1,0 +1,132 @@
+.modal {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
+  height: 60%;
+  position: relative;
+  min-height: 500px;
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.modal-cards {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  /* border: 1.2px solid black; */
+  justify-content: center;
+}
+
+.modal-top {
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+}
+
+.challenge-text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #ffd700;
+  }
+  50% {
+    box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
+  }
+  100% {
+    box-shadow: 0 0 5px #ffd700;
+  }
+}
+
+.card-match {
+  animation: glow 2s infinite;
+}
+
+.take-card-button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.take-card-button:disabled {
+  cursor: auto;
+}
+
+.take-card-button:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.Immigration {
+  background-color: #6b5b95;
+}
+.Luggage {
+  background-color: #028a0f;
+}
+
+.Customs {
+  background-color: #ff7f11;
+}
+
+.Security {
+  background-color: #1477b2;
+}
+.Terminal {
+  background-color: gold;
+}
+
+.added {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.exit-button {
+  font-size: 2.5rem;
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  right: 12px;
+  top: 2px;
+}
+
+.exit-button:hover,
+.exit-button:focus {
+  transform: scale(1.05);
+}

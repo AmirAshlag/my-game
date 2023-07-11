@@ -1,0 +1,61 @@
+import immegration from "../Svg/324-3247530_file-airport-immigration-svg-immigration-symbol.svg";
+import luggage from "../Svg/encrypted-tbn0_gstatic_com-images (3).svg 00-31-48-569.svg 00-33-53-653.svg";
+import customs from "../Svg/912261-200.svg";
+import security from "../Svg/encrypted-tbn0_gstatic_com-images (1).svg";
+import terminal from "../Svg/encrypted-tbn0_gstatic_com-images (3).svg";
+import questionmark from "../Svg/354-3544377_faqs-free-question-mark-svg (1).svg";
+
+const myArray = [
+  true,
+  true,
+  true,
+  true,
+  true,
+  { checkpoint: true, imgurl: immegration, type: "Immigration" },
+  true,
+  true,
+  true,
+  { question: true, imgurl: questionmark },
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  true,
+  true,
+  true,
+  { checkpoint: true, imgurl: luggage, type: "Luggage" },
+  true,
+  true,
+  { question: true, imgurl: questionmark },
+  true,
+  true,
+  true,
+  { checkpoint: true, imgurl: customs, type: "Customs" },
+  { question: true, imgurl: questionmark },
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  true,
+  true,
+  { checkpoint: true, imgurl: security, type: "Security" },
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  { checkpoint: true, imgurl: terminal, type: "Terminal" },
+];
+
+export default myArray;

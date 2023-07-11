@@ -1,0 +1,61 @@
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  height: 190px;
+  flex-shrink: 0;
+  /* margin: 10px auto; */
+  /* min-height: 160px; */
+}
+
+.card-header {
+  padding: 10px;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
+.card-body {
+  padding: 15px;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  white-space: pre-wrap;
+}
+
+.Immigration {
+  background-color: #6b5b95;
+}
+.Luggage {
+  background-color: #028a0f;
+}
+
+.Customs {
+  background-color: #ff7f11;
+}
+
+.Security {
+  background-color: #1477b2;
+}
+.Terminal {
+  background-color: gold;
+}
+
+.Free-Pass {
+  background-color: rgb(0, 0, 0);
+}
+
+@media only screen and (max-width: 1366px) {
+  .card {
+    height: 170px;
+  }
+  .card-body {
+    padding: 5px 10px;
+    /* border: 1px solid black; */
+  }
+}

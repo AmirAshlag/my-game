@@ -1,0 +1,28 @@
+.deck {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding: 10px 20px;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  white-space: nowrap;
+}
+
+@keyframes glow2 {
+  0% {
+    box-shadow: 0 0 5px #ffd700;
+  }
+  50% {
+    box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
+  }
+  100% {
+    box-shadow: 0 0 5px #ffd700;
+  }
+}
+
+.new-card {
+  animation: glow2 2s linear;
+}
