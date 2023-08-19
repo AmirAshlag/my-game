@@ -52,7 +52,7 @@
   transition: all 1s linear;
   margin-top: 20px;
   margin-left: 28px;
-  color: #4169e1;
+  color: black;
   z-index: 5;
 }
 
@@ -76,8 +76,8 @@
   /* border: 1.2px solid black; */
 }
 
-.dice {
-  padding: 15px;
+.dice-container {
+  margin: 15px;
   /* color: rgb(0, 0, 0); */
 }
 

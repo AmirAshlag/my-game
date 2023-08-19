@@ -138,3 +138,15 @@
   color: #333;
   margin-top: 10px;
 }
+
+.error-message {
+  background-color: #ffe4e1;
+  color: #dc143c;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  width: 400px;
+  box-sizing: border-box;
+  /* margin-top: 8px; */
+}

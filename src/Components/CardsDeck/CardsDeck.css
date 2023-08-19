@@ -1,14 +1,25 @@
-.deck {
+/* .deck {
   display: flex;
   gap: 20px;
   overflow-x: scroll;
-  padding-left: 20px;
-  padding-right: 20px;
   padding: 10px 20px;
   width: 100%;
   position: fixed;
   bottom: 0px;
   white-space: nowrap;
+} */
+
+.deck {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0px;
+  white-space: nowrap;
+  /* animation: ticker 5s linear 1; */
+  padding: 10px 20px;
 }
 
 @keyframes glow2 {

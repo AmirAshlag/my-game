@@ -4,54 +4,58 @@ import { myContext } from "../../App";
 import Card from "../Card/Card";
 import "./LuckModal.css";
 import { useLocation, useNavigate } from "react-router-dom";
-// import axios from "axios";
 
-export default function CardModal({ card }) {
-  const { cards, setCards, usedCards } = useContext(myContext);
+export default function CardModal() {
+  const { cards, setCards } = useContext(myContext);
   const [givenCard, setGivenCard] = useState("");
   const location = useLocation();
-  const { turnsleft } = location.state;
+  const { turnsleft, box, questionType } = location.state;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    try {
-      let myCrads = cards ? [...cards] : [];
-      console.log(usedCards, "used");
-      if (usedCards) {
-        myCrads = [...myCrads, ...usedCards];
-      }
+  useEffect(()=>{
+    console.log(givenCard, "givenCard");
+  },[givenCard])
 
-      const filterdList = cardsList.filter(
-        (cardList) => !myCrads.some((card) => card.id === cardList.id)
-      );
-      const randomIndex = Math.floor(Math.random() * filterdList.length);
-      const selectedCard = filterdList[randomIndex];
-      console.log(filterdList);
+  useEffect(() => {
+    let myCrads = cards ? [...cards] : [];
+    const missingCards = cardsList
+      .filter((card) => card.type === box.type)
+      .filter((card) => !myCrads.some((myCard) => myCard.id === card.id));
+    console.log(missingCards, "missingCards");
+    if (!missingCards.length) {
+      setGivenCard("no-cards");
+    } else if (questionType === "+1") {
+      const randomIndex = Math.floor(Math.random() * missingCards.length);
+      const selectedCard = missingCards[randomIndex];
       console.log(selectedCard);
-      setGivenCard(selectedCard);
-    } catch (error) {
-      console.error("An error occurred:", error);
+      setGivenCard([selectedCard]);
+    } else if (questionType === "complete") {
+      setGivenCard(missingCards);
     }
     // eslint-disable-next-line
   }, []);
 
   function exitModal() {
-    setCards((prev) => [{ ...givenCard, newCard: true }, ...prev]);
-    // axios.post("http://localhost:7070/data/cards", {
-    //   cards: [...cards, givenCard],
-    // });
-    console.log(turnsleft, "left-challenge");
-    setTimeout(() => {
+    if (Array.isArray(givenCard)) {
       setCards((prev) => {
-        return prev.map((card) => {
-          if (card.newCard) {
-            return { ...card, newCard: false };
-          } else {
-            return card;
-          }
-        });
+        return [
+          ...givenCard.map((card) => ({ ...card, newCard: true })),
+          ...prev,
+        ];
       });
-    }, 1000);
+      console.log(turnsleft, "left-challenge");
+      setTimeout(() => {
+        setCards((prev) => {
+          return prev.map((card) => {
+            if (card.newCard) {
+              return { ...card, newCard: false };
+            } else {
+              return card;
+            }
+          });
+        });
+      }, 1000);
+    }
     navigate("/game", {
       state: {
         turnsleft: turnsleft,
@@ -71,12 +75,32 @@ export default function CardModal({ card }) {
             x
           </button>
         )}
-        {givenCard && (
+        {Array.isArray(givenCard) && (
           <h2 className="luck-title">
-            you got a card from the {givenCard.type} collection!
+            {givenCard.length > 1
+              ? `You got ${givenCard.length} cards from the ${box.type} collection!`
+              : `You got a card from the ${box.type} collection!`}
           </h2>
         )}
-        <div>{givenCard && <Card card={givenCard} />}</div>
+        {givenCard === "no-cards" && (
+          <h2 className="luck-title">
+            You have all the cards from {box.type} collection!
+          </h2>
+        )}
+        {/* <div>{givenCard.type && <Card card={givenCard[0]} />}</div> */}
+        <div>
+          {Array.isArray(givenCard) && (
+            <div className="given-cards">
+              {givenCard.map((card) => {
+                return (
+                  <span key={card.id}>
+                    <Card card={card} />
+                  </span>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

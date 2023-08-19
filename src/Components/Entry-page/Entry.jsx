@@ -4,40 +4,54 @@ import Card from "../Card/Card";
 import { useState, useContext, useEffect } from "react";
 import { myContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { nanoid } from "nanoid";
 
-function Entry({ setScore, joinRoom, score, setUserId, gameId, setGameId }) {
+function Entry({
+  setScore,
+  joinRoom,
+  score,
+  setUserId,
+  gameId,
+  setGameId,
+  leaveRoom,
+}) {
   const [selectedCards, setSelectedCards] = useState([]);
-  const [cardsAmount, setCardsAmount] = useState(0);
+  const [cardsAmount, setCardsAmount] = useState("");
+  const [cardsError, setCardsError] = useState(false);
   const [newGameId, setNewGameId] = useState(false);
-  // const [gameId, setGameId] = useState("");
   const [userName, setUserName] = useState("");
   const { setCards } = useContext(myContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.removeItem("refreshed");
+    leaveRoom();
+    // eslint-disable-next-line
   }, []);
 
   function startGame() {
-    const id = nanoid();
-    setUserId(id);
-    joinRoom({
-      roomId: gameId,
-      userName: userName,
-      userId: id,
-      score: score,
-      initialCards: selectedCards.length
-    });
-    axios.post("http://localhost:7070/data/cards", {
-      cards: selectedCards,
-    });
-    navigate("/game", {
-      state: {
-        turnesleft: false,
-      },
-    });
+    if (cardsAmount > 0 && cardsAmount < 16) {
+      const id = nanoid();
+      setUserId(id);
+      joinRoom({
+        roomId: gameId,
+        userName: userName,
+        userId: id,
+        score: score,
+        initialCards: selectedCards.length,
+        finished: false,
+      });
+      localStorage.setItem("gameId", gameId);
+      localStorage.setItem("userId", id);
+      navigate("/game", {
+        state: {
+          turnsleft: false,
+        },
+      });
+    } else {
+      setCardsError(true);
+    }
   }
 
   function getRandomCards(arr, n) {
@@ -108,11 +122,11 @@ function Entry({ setScore, joinRoom, score, setUserId, gameId, setGameId }) {
         </div>
         <div className="input-group">
           <input
-            max={10}
-            min={0}
+            max={15}
+            min={1}
             type="number"
             id="game-input"
-            placeholder="select cards amount 0-10"
+            placeholder="select cards amount 1-15"
             disabled={selectedCards.length}
             onChange={(e) => {
               setCardsAmount(e.target.value);
@@ -133,13 +147,23 @@ function Entry({ setScore, joinRoom, score, setUserId, gameId, setGameId }) {
             <button
               className="submit-btn"
               onClick={() => {
-                getRandomCards(cards, cardsAmount);
+                if (cardsAmount > 0 && cardsAmount < 16) {
+                  setCardsError(false);
+                  getRandomCards(cards, cardsAmount);
+                } else {
+                  setCardsError(true);
+                }
               }}
             >
               Go
             </button>
           )}
         </div>
+        {cardsError && (
+          <div className="error-message">
+            please select 1-15 cards and click on Go
+          </div>
+        )}
         <button
           className="start-btn"
           onClick={() => {

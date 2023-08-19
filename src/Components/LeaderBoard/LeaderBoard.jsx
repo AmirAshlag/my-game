@@ -11,14 +11,17 @@ function Leaderboard() {
         <h2>Leaderboard</h2>
       </div>
       <div className="leaderboard-body">
-        {usersList.map((user, index) => (
-           (index < 3 || user.userId === userId) && (<div className="leaderboard-item" key={index}>
-            <p>
-              {index + 1}. {user.userName}
-            </p>
-            <p>score: {user.score}</p>
-          </div>)
-        ))}
+        {usersList.map(
+          (user, index) =>
+            (index < 3 || user.userId === userId) && (
+              <div className="leaderboard-item" key={index}>
+                <p>
+                  {index + 1}. {user.userName}
+                </p>
+                <p>Turnes: {user.score}</p>
+              </div>
+            )
+        )}
       </div>
     </div>
   );

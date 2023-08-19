@@ -7,8 +7,13 @@ import ChallengeModal from "./Components/ChallengeModal/ChallengeModal";
 import LuckModal from "./Components/LuckModal/LuckModal";
 import FinalPage from "./Components/Final-page/FinalPage";
 import { io } from "socket.io-client";
+// import { useEffect } from "react";
 
 export const myContext = createContext();
+
+export const socket = io("http://localhost:7070/", {
+  transports: ["websocket"],
+});
 
 function App() {
   const [cards, setCards] = useState(false);
@@ -19,7 +24,6 @@ function App() {
   const [gameId, setGameId] = useState("");
   const [usersList, setUsersList] = useState([]);
 
-  const socket = io("http://localhost:3000/");
   socket.on("connect", () => {
     console.log("connected");
   });
@@ -29,15 +33,36 @@ function App() {
   }
 
   function updateScore(newScore) {
-    console.log("updating");
+    console.log(gameId);
     socket.emit("update-scoreboard", userId, newScore, gameId);
   }
 
+  function getScoreBoard() {
+    socket.emit("get-scoreboard");
+  }
+
+  function leaveRoom() {
+    socket.emit(
+      "leave-room",
+      localStorage.getItem("gameId"),
+      localStorage.getItem("userId")
+    );
+  }
+
+  function finishedGamed() {
+    socket.emit("finished-game");
+  }
+
   socket.on("scoreboard-updated", (users) => {
+    console.log("update-recived");
     users.sort((a, b) => a.score - b.score);
-    console.log("called");
-    console.log(users, "users");
     setUsersList(users);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("disconnected");
+    window.location.href = "/game";
+    leaveRoom();
   });
 
   return (
@@ -50,6 +75,7 @@ function App() {
             path="/game"
             element={
               <Board
+                leaveRoom={leaveRoom}
                 setCards={setCards}
                 score={score}
                 setScoreAdded={setScoreAdded}
@@ -68,6 +94,8 @@ function App() {
                   updateScore={updateScore}
                   scoreAdded={scoreAdded}
                   score={score}
+                  finishedGamed={finishedGamed}
+                  leaveRoom={leaveRoom}
                 />
               }
             />
@@ -83,10 +111,16 @@ function App() {
                 setUserId={setUserId}
                 setGameId={setGameId}
                 gameId={gameId}
+                leaveRoom={leaveRoom}
               />
             }
           />
-          <Route path="/results" element={<FinalPage />} />
+          <Route
+            path="/results"
+            element={
+              <FinalPage getScoreBoard={getScoreBoard} leaveRoom={leaveRoom} />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </myContext.Provider>

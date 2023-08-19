@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import ReactDice from "react-dice-complete";
+import { useRef, useState } from "react";
+import ReactDice, { ReactDiceRef } from "react-dice-complete";
 
 function Dice({ MoveUser, loaded, disabledDice, setDisabledDice }) {
   const reactDice = useRef(null);
@@ -12,23 +12,25 @@ function Dice({ MoveUser, loaded, disabledDice, setDisabledDice }) {
 
   return (
     <div
-    onClick={() => {
-      console.log(disabledDice);
-      if (loaded && !disabledDice) {
-        setDisabledDice(true);
-      }
-    }}
+      className="dice-container"
+      style={{ cursor: "grab"}}
+      onClick={() => {
+        console.log(disabledDice);
+        if (loaded && !disabledDice) {
+          reactDice.current.rollAll();
+          setDisabledDice(true);
+        }
+      }}
     >
       <ReactDice
         numDice={1}
-        useRef={reactDice}
+        ref={reactDice}
         rollDone={rollDone}
-        className="dice"
         defaultRoll={1}
         faceColor="rgb(0, 0, 0)"
         dotColor="rgb(255,255,255)"
         rollTime="1.2"
-        disableIndividual={disabledDice}
+        disableIndividual
       />
     </div>
   );

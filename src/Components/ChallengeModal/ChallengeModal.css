@@ -12,9 +12,9 @@
 .modal-content {
   background-color: #fefefe;
   margin: 5% auto;
-  padding: 20px;
+  padding: 25px;
   border: 1px solid #888;
-  width: 70%;
+  width: 60%;
   height: 60%;
   position: relative;
   min-height: 500px;
@@ -101,7 +101,7 @@
   background-color: gold;
 }
 
-.added {
+.glow {
   animation: fadeIn 1s ease-out;
 }
 
@@ -129,4 +129,74 @@
 .exit-button:hover,
 .exit-button:focus {
   transform: scale(1.05);
+}
+
+.no-cards {
+  font-size: 18px;
+  font-weight: 520;
+  font-family: Arial, sans-serif;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in-out {
+  opacity: 0;
+}
+
+.arrow-exit {
+  font-size: 80px;
+  cursor: grab;
+}
+
+/* Styling for Yes Button */
+.yes-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.yes-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+/* Styling for No Button */
+.no-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.no-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.take-card-button-container {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  margin-left: 30%;
+  margin-top: 50px;
+}
+
+.take-card-title {
+  width: 80%;
+  margin-left: 10%;
 }

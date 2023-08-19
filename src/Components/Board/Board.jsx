@@ -1,10 +1,10 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import "./Board.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Dice from "../Dice/Dice";
-import myArray from "../../Lists/board-list.js";
+import boardList from "../../Lists/board-list.js";
 import Checkpoint from "../SpecialSpots/Checkpoint";
 import Question from "../SpecialSpots/Question";
 import CardsDeck from "../CardsDeck/CardsDeck";
@@ -12,26 +12,30 @@ import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import challengesList from "../../Lists/challenges";
 import Leaderboard from "../LeaderBoard/LeaderBoard";
 
-// const waitTime = async (time = 500) =>
-//   new Promise((resolve) => setTimeout(() => resolve(), time));
+const verticalIndexes = [9, 19, 20, 30];
+const backwardsIndexs = [29, 28, 27, 26, 25, 24, 23, 22, 21];
 
-function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
+function Board({
+  score,
+  setScoreAdded,
+  scoreAdded,
+  setScore,
+  updateScore,
+  leaveRoom,
+}) {
   const [userLocation, setUserLocation] = useState(0);
   const [challenges, setChallenges] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [disabledDice, setDisabledDice] = useState(false);
   const [scoreAddedByRoll, setScoreAddedByRooll] = useState(0);
-  const verticalIndexes = [9, 19, 20, 30];
-  const backwardsIndexs = [29, 28, 27, 26, 25, 24, 23, 22, 21];
-  const checkpoints = [5, 22, 29, 42, 49];
-  const questionMarks = [9, 25, 30];
   const location = useLocation();
-  const { turnsleft } = location.state;
+  const { turnsleft = 0 } = location.state || {};
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("refreshed")) {
+      leaveRoom();
       navigate("/");
     } else {
       localStorage.setItem("refreshed", true);
@@ -44,26 +48,24 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
   }, []);
 
   useEffect(() => {
-    console.log(turnsleft, "turns left");
     if (location.pathname === "/game") {
       setTimeout(() => {
         setScoreAdded(0);
       }, 3000);
-      console.log("working");
       if (turnsleft === 0) {
         setDisabledDice(false);
       } else if (turnsleft) {
         setDisabledDice(true);
-        setTimeout(() => {
-          MoveUser(turnsleft, true);
+        setTimeout(async () => {
+          await MoveUser(turnsleft, true);
         }, 500);
       }
     }
     // eslint-disable-next-line
   }, [location]);
 
-  function assignChallenges(myArray, cards) {
-    let checkpointObjects = myArray.filter(
+  function assignChallenges(boardList, cards) {
+    let checkpointObjects = boardList.filter(
       (item) => typeof item === "object" && item.checkpoint === true
     );
     checkpointObjects = checkpointObjects.map((checkpointObject) => {
@@ -78,20 +80,20 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
 
       return checkpointObject;
     });
-    // console.log(checkpointObjects);
     setChallenges(checkpointObjects);
     return checkpointObjects;
   }
 
   useEffect(() => {
-    assignChallenges(myArray, challengesList);
+    assignChallenges(boardList, challengesList);
     setLoaded(true);
   }, []);
 
   function checkIfChallenge(i, interval, turnsleftholder, timeout) {
-    if (checkpoints.includes(i + userLocation)) {
-      const challengeIndex = userLocation + i;
-      const currentBox = myArray.slice(challengeIndex, challengeIndex + 1)[0];
+    const boxIndex = userLocation + i;
+    const currentBox = boardList.slice(boxIndex, boxIndex + 1)[0];
+    // console.log(currentBox);
+    if (currentBox.hasOwnProperty("checkpoint") && currentBox.checkpoint) {
       const challenge = challenges.find((item) => {
         return item.type === currentBox.type;
       });
@@ -104,25 +106,26 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
       });
       clearTimeout(timeout);
       clearInterval(interval);
-    } else if (
-      questionMarks.includes(i + userLocation) &&
-      turnsleftholder === 0
-    ) {
+    } else if (currentBox.question && turnsleftholder === 0) {
       clearTimeout(timeout);
       clearInterval(interval);
       navigate("/game/luck", {
         state: {
           turnsleft: turnsleftholder,
+          box: currentBox,
+          questionType: currentBox.questionType,
         },
       });
     }
   }
 
   async function MoveUser(number, continuedTurn) {
-    console.log("moved");
+    // console.log("moved");
     if (!continuedTurn) {
-      updateScore(score + 1);
-      setScore((prev) => (prev += 1));
+      setScore((prev) => {
+        updateScore(prev + 1);
+        return (prev += 1);
+      });
       setScoreAddedByRooll(1);
       setTimeout(() => {
         setScoreAddedByRooll(0);
@@ -152,20 +155,12 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
       }
     }, 500);
 
-    // for (let i = 0; i < turnsleftholder; i++) {
-    //   // do your thing
-    //   await waitTime();
-    // }
     const timeout = setTimeout(() => {
       setDisabledDice(false);
       clearInterval(interval);
+      // console.log("resolved timeout");
     }, number * 500);
   }
-
-  // const isDisabled = useMemo(() => {
-  //   if (blabla) return true;
-  //   return false;
-  // }, []);
 
   return (
     <div className="board-body">
@@ -175,7 +170,7 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
           <div className="top-container">
             {location.pathname === "/game" && (
               <h2>
-                Score: {score}{" "}
+                Turnes: {score}{" "}
                 {scoreAdded !== 0 && scoreAddedByRoll === 0 && (
                   <span className="fade-out">+({scoreAdded})</span>
                 )}
@@ -195,7 +190,7 @@ function Board({ score, setScoreAdded, scoreAdded, setScore, updateScore }) {
             <div></div>
           </div>
           <div className="board">
-            {myArray.map((box, i) => {
+            {boardList.map((box, i) => {
               return typeof box === "object" ? (
                 box.checkpoint ? (
                   <Checkpoint

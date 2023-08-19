@@ -20,7 +20,7 @@ const cards = [
   {
     type: "Luggage",
     id: "B2",
-    text: "You kept your luggage barcode sticker ID with your passport.",
+    text: "You kept your luggage barcode sticker ID with your passport",
   },
   { type: "Luggage", id: "B3", text: "You made sure luggage will not torn up" },
   {
@@ -57,15 +57,15 @@ const cards = [
   {
     type: "Terminal",
     id: "E2",
-    text: "You've packed an extra collapsible bag for such situations",
+    text: "You've packed an extra collapsible bag",
   },
   {
     type: "Terminal",
     id: "E3",
-    text: "You had checked for updates prior to departure",
+    text: "You had verified your gate of departure",
   },
-  { type: "Free-Pass", id: "F1", text: "Free Pass" },
-  { type: "Free-Pass", id: "F2", text: "Free Pass" },
+  // { type: "Free-Pass", id: "F1", text: "Free Pass" },
+  // { type: "Free-Pass", id: "F2", text: "Free Pass" },
   //   { type: "Immigration", id: "FPA", text: "Free Pass" },
   //   { type: "Luggage", id: "FPB", text: "Free Pass" },
   //   { type: "Customs", id: "FPC", text: "Free Pass" },
