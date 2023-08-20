@@ -11,7 +11,7 @@ import { io } from "socket.io-client";
 
 export const myContext = createContext();
 
-export const socket = io("http://localhost:7070/", {
+export const socket = io("https://goldratt-game23.onrender.com:7070/", {
   transports: ["websocket"],
 });
 
