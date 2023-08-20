@@ -2,7 +2,7 @@ import "./App.css";
 import Board from "./Components/Board/Board";
 import Entry from "./Components/Entry-page/Entry";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import ChallengeModal from "./Components/ChallengeModal/ChallengeModal";
 import LuckModal from "./Components/LuckModal/LuckModal";
 import FinalPage from "./Components/Final-page/FinalPage";
@@ -23,6 +23,13 @@ function App() {
   const [userId, setUserId] = useState("");
   const [gameId, setGameId] = useState("");
   const [usersList, setUsersList] = useState([]);
+
+  useEffect(()=>{
+
+    return ()=>{
+      leaveRoom()
+    }
+  },[])
 
   socket.on("connect", () => {
     console.log("connected");
