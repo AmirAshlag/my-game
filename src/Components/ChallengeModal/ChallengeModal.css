@@ -15,10 +15,10 @@
   padding: 25px;
   border: 1px solid #888;
   width: 60%;
+  min-width: 800px;
   height: 60%;
   position: relative;
   min-height: 500px;
-  min-width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

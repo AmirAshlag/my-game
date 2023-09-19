@@ -15,6 +15,11 @@ const challengesList = [
     answer: "You have an invitation letter",
   },
   {
+    type: "Immigration",
+    text: "You need a visa to enter (A4).",
+    answer: "You have a valid visa",
+  },
+  {
     type: "Luggage",
     text: "You picked up, a similar, but wrong luggage (B1).",
     answer: "You marked your luggage with a special mark",
@@ -28,6 +33,11 @@ const challengesList = [
     type: "Luggage",
     text: "Luggage arrives with a torn up zipper (B3).",
     answer: "You made sure luggage will not torn up",
+  },
+  {
+    type: "Luggage",
+    text: "Your luggage exceeds weight limit (B4).",
+    answer: "You weighed your bags",
   },
   {
     type: "Customs",
@@ -45,6 +55,11 @@ const challengesList = [
     answer: "You made sure you have a customs declaration form",
   },
   {
+    type: "Customs",
+    text: "You didn't declare your food items (C4).",
+    answer: "You declared all food items",
+  },
+  {
     type: "Security",
     text: "Forgot to remove a bottle of water from carry-on luggage (D1).",
     answer: "You made sure there is no excess liquid in carry-on luggage",
@@ -58,6 +73,11 @@ const challengesList = [
     type: "Security",
     text: "Forgot to take out laptop from the bag (D3).",
     answer: "Laptop is out from the bag",
+  },
+  {
+    type: "Security",
+    text: "Security asks you to remove your belt (D4).",
+    answer: "You removed your belt",
   },
   {
     type: "Terminal",
@@ -74,5 +94,11 @@ const challengesList = [
     text: "Your boarding gate has changed go to a different gate (E3).",
     answer: "You had verified your gate of departure",
   },
+  {
+    type: "Terminal",
+    text: "Your flight is delayed or canceled (E4).",
+    answer: "You checked flight status",
+  },
 ];
+
 export default challengesList;

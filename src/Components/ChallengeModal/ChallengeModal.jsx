@@ -141,7 +141,7 @@ function ChallengeModal({
 
   function exitChallenge(card) {
     console.log(card);
-    if (!showChallenge) {
+    if (card) {
       updateScore(score + 2);
     } else {
       updateScore(score)

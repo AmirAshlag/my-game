@@ -10,13 +10,13 @@ import treasure from "../Svg/encrypted-tbn0_gstatic_com-images (6).svg";
 const boardList = [
   true,
   true,
-  true,
   {
     question: true,
     imgurl: treasure,
     type: "Immigration",
     questionType: "complete",
   },
+  true,
   // {
   //   question: true,
   //   imgurl: plusOne,
@@ -57,8 +57,12 @@ const boardList = [
   //   type: "Security",
   //   questionType: "+1",
   // },
-  true,
-  true,
+  {
+    question: true,
+    imgurl: treasure,
+    type: "Security",
+    questionType: "complete",
+  },
   true,
   {
     checkpoint: true,
@@ -67,6 +71,8 @@ const boardList = [
     nextChallengeType: "Security",
   },
   true,
+  true,
+  true,
   {
     question: true,
     imgurl: treasure,
@@ -74,21 +80,15 @@ const boardList = [
     questionType: "complete",
   },
   true,
-  // { question: true, imgurl: plusOne, type: "Luggage", questionType: "+1" },
-  true,
-  true,
   {
     checkpoint: true,
     imgurl: luggage,
     type: "Luggage",
     nextChallengeType: "Customs",
   },
-  {
-    question: true,
-    imgurl: treasure,
-    type: "Security",
-    questionType: "complete",
-  },
+  true,
+  // { question: true, imgurl: plusOne, type: "Luggage", questionType: "+1" },
+  true,
   false,
   false,
   false,
@@ -107,6 +107,12 @@ const boardList = [
     nextChallengeType: "Terminal",
   },
   true,
+  {
+    question: true,
+    imgurl: treasure,
+    type: "Terminal",
+    questionType: "complete",
+  },
   true,
   // {
   //   question: true,
@@ -115,12 +121,6 @@ const boardList = [
   //   questionType: "+1",
   // },
   true,
-  {
-    question: true,
-    imgurl: treasure,
-    type: "Terminal",
-    questionType: "complete",
-  },
   true,
   true,
   {

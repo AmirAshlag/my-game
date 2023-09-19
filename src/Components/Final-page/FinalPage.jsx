@@ -35,7 +35,8 @@ function FinalPage({ getScoreBoard, leaveRoom }) {
                 </p>
                 <div className="stats-holder">
                   <p>Turnes: {user.score}</p>
-                  <p>InitialCards: {user.initialCards}</p>
+                  <p>Initial-cards: {user.initialCards}</p>
+                  <p>Chests-landed: {user.chestsLanded}</p>
                 </div>
               </div>
             ))}

@@ -11,12 +11,13 @@ import { io } from "socket.io-client";
 
 export const myContext = createContext();
 
-export const socket = io("https://goldratt-game23.onrender.com:7070/", {
+export const socket = io("http://localhost:7070", {
   transports: ["websocket"],
 });
 
 function App() {
   const [cards, setCards] = useState(false);
+  const [chestsLanded, setChestsLanded] = useState(false);
   const [usedCards, setUsedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [scoreAdded, setScoreAdded] = useState(0);
@@ -24,15 +25,18 @@ function App() {
   const [gameId, setGameId] = useState("");
   const [usersList, setUsersList] = useState([]);
 
-  useEffect(()=>{
-
-    return ()=>{
-      leaveRoom()
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      leaveRoom();
+    };
+  }, []);
 
   socket.on("connect", () => {
     console.log("connected");
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("Connect Error", error);
   });
 
   function joinRoom(data) {
@@ -46,6 +50,14 @@ function App() {
 
   function getScoreBoard() {
     socket.emit("get-scoreboard");
+  }
+
+  function UpdateChestsLanded() {
+    setChestsLanded((prev) => {
+      const newChestsLanded = prev + 1;
+      socket.emit("update-chests-landed",userId, newChestsLanded, gameId);
+      return newChestsLanded;
+    });
   }
 
   function leaveRoom() {
@@ -74,7 +86,17 @@ function App() {
 
   return (
     <myContext.Provider
-      value={{ cards, setCards, setUsedCards, usedCards, usersList, userId }}
+      value={{
+        cards,
+        setCards,
+        setUsedCards,
+        usedCards,
+        usersList,
+        userId,
+        updateScore,
+        setScore,
+        setScoreAdded,
+      }}
     >
       <BrowserRouter>
         <Routes>
@@ -89,6 +111,8 @@ function App() {
                 scoreAdded={scoreAdded}
                 setScore={setScore}
                 updateScore={updateScore}
+                UpdateChestsLanded={UpdateChestsLanded}
+                myCards={cards}
               />
             }
           >

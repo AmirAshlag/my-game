@@ -6,6 +6,7 @@ import { myContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { nanoid } from "nanoid";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function Entry({
   setScore,
@@ -19,9 +20,11 @@ function Entry({
   const [selectedCards, setSelectedCards] = useState([]);
   const [cardsAmount, setCardsAmount] = useState("");
   const [cardsError, setCardsError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [idError, setIdError] = useState(false);
   const [newGameId, setNewGameId] = useState(false);
   const [userName, setUserName] = useState("");
-  const { setCards } = useContext(myContext);
+  const { setCards, cards: userCards } = useContext(myContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +34,14 @@ function Entry({
   }, []);
 
   function startGame() {
-    if (cardsAmount > 0 && cardsAmount < 16) {
+    if (
+      gameId.length == 5 &&
+      userName &&
+      userCards.length > 0 &&
+      userCards.length < 16
+    ) {
+      console.log(userCards);
+      console.log(cardsAmount > 0 && cardsAmount < 16, "check");
       const id = nanoid();
       setUserId(id);
       joinRoom({
@@ -41,6 +51,7 @@ function Entry({
         score: score,
         initialCards: selectedCards.length,
         finished: false,
+        chestsLanded: 0,
       });
       localStorage.setItem("gameId", gameId);
       localStorage.setItem("userId", id);
@@ -50,41 +61,54 @@ function Entry({
         },
       });
     } else {
-      setCardsError(true);
+      if (gameId.length !== 5) {
+        setIdError(true);
+      } else if (idError) {
+        setIdError(false);
+      }
+      if (!userName) {
+        setNameError(true);
+      } else if (nameError) {
+        setNameError(false);
+      }
+      if (userCards.length < 1 || userCards.length > 15 || !userCards) {
+        setCardsError(true);
+      } else if (cardsError) {
+        setCardsError(false);
+      }
     }
   }
 
-  function getRandomCards(arr, n) {
-    console.log(n);
-    if (n === 0) {
-      setCards([]);
-      setSelectedCards([]);
-      setScore(0);
-    } else if (n > 0) {
-      let result = new Array(n),
-        len = arr.length,
-        taken = new Array(len);
+  function distributeCards(num) {
+    const types = Array.from(new Set(cards.map((card) => card.type)));
 
-      if (n > len)
-        throw new RangeError(
-          "getRandomCards: more elements taken than available"
-        );
+    let output = [];
+    const baseCount = Math.floor(num / types.length);
+    const extraCount = num % types.length;
 
-      while (n--) {
-        let x = Math.floor(Math.random() * len);
-        result[n] = arr[x in taken ? taken[x] : x];
-        taken[x] = --len in taken ? taken[len] : len;
+    for (const type of types) {
+      const cardsOfType = cards.filter((card) => card.type === type);
+      for (let i = 0; i < baseCount; i++) {
+        const randomIndex = Math.floor(Math.random() * cardsOfType.length);
+        output.push(cardsOfType[randomIndex]);
       }
-
-      console.log(result);
-      setCards(result);
-      setSelectedCards(result);
-      setScore(result.length);
     }
+
+    const shuffledTypes = [...types].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < extraCount; i++) {
+      const extraType = shuffledTypes[i];
+      const extraCards = cards.filter((card) => card.type === extraType);
+      const randomIndex = Math.floor(Math.random() * extraCards.length);
+      output.push(extraCards[randomIndex]);
+    }
+
+    setCards(output);
+    setSelectedCards(output);
+    setScore(output.length);
   }
 
   return (
-    <div>
+    <div className="form-container">
       <div className="entry-container">
         <button
           className="create-btn"
@@ -149,7 +173,7 @@ function Entry({
               onClick={() => {
                 if (cardsAmount > 0 && cardsAmount < 16) {
                   setCardsError(false);
-                  getRandomCards(cards, cardsAmount);
+                  distributeCards(cardsAmount);
                 } else {
                   setCardsError(true);
                 }
@@ -159,11 +183,19 @@ function Entry({
             </button>
           )}
         </div>
-        {cardsError && (
-          <div className="error-message">
-            please select 1-15 cards and click on Go
-          </div>
-        )}
+        <div className="error-container">
+          {cardsError && (
+            <div className="error-message">
+              Please select 1-15 cards and click on Go
+            </div>
+          )}
+          {idError && (
+            <div className="error-message">Please enter valid game id</div>
+          )}
+          {nameError && (
+            <div className="error-message">please enter your name</div>
+          )}
+        </div>
         <button
           className="start-btn"
           onClick={() => {
@@ -176,9 +208,15 @@ function Entry({
 
       {selectedCards.length > 0 && (
         <div className="ticker">
-          {selectedCards.map((card) => {
-            return <Card card={card} key={card.id} />;
-          })}
+          {selectedCards
+            .sort((a, b) => {
+              if (a.type < b.type) return -1;
+              if (a.type > b.type) return 1;
+              return 0;
+            })
+            .map((card) => {
+              return <Card card={card} key={card.id} />;
+            })}
         </div>
       )}
     </div>

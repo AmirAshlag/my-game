@@ -11,6 +11,7 @@ import CardsDeck from "../CardsDeck/CardsDeck";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import challengesList from "../../Lists/challenges";
 import Leaderboard from "../LeaderBoard/LeaderBoard";
+import cards from "../../Lists/cards-list";
 
 const verticalIndexes = [9, 19, 20, 30];
 const backwardsIndexs = [29, 28, 27, 26, 25, 24, 23, 22, 21];
@@ -22,6 +23,8 @@ function Board({
   setScore,
   updateScore,
   leaveRoom,
+  UpdateChestsLanded,
+  myCards,
 }) {
   const [userLocation, setUserLocation] = useState(0);
   const [challenges, setChallenges] = useState([]);
@@ -34,7 +37,7 @@ function Board({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("refreshed")) {
+    if (localStorage.getItem("refreshed") || !myCards) {
       leaveRoom();
       navigate("/");
     } else {
@@ -107,6 +110,7 @@ function Board({
       clearTimeout(timeout);
       clearInterval(interval);
     } else if (currentBox.question && turnsleftholder === 0) {
+      UpdateChestsLanded();
       clearTimeout(timeout);
       clearInterval(interval);
       navigate("/game/luck", {

@@ -13,13 +13,19 @@ function CardsDeck() {
   return (
     <div className="deck">
       {cards &&
-        cards.map((card) => {
-          return (
-            <div className={card.newCard ? "new-card" : ""} key={card.id}>
-              <Card card={card}/>
-            </div>
-          );
-        })}
+        cards
+          .sort((a, b) => {
+            if (a.type < b.type) return -1;
+            if (a.type > b.type) return 1;
+            return 0;
+          })
+          .map((card) => {
+            return (
+              <div className={card.newCard ? "new-card" : ""} key={card.id}>
+                <Card card={card} />
+              </div>
+            );
+          })}
     </div>
   );
 }
