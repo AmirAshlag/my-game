@@ -7,7 +7,7 @@ const cards = [
     id: "A2",
     text: "You have a note with destination address",
   },
-  { type: "Immigration", id: "A3", text: "You have an invitation letter" },
+  { type: "Immigration", id: "A3", text: "You have a valid visa" },
   { type: "Immigration", id: "A4", text: "You have a valid visa" },
 
   {
@@ -62,7 +62,6 @@ const cards = [
   },
   { type: "Terminal", id: "E4", text: "You checked flight status" },
 ];
-
 
 export default cards;
 

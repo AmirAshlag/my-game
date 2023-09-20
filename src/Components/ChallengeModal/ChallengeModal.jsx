@@ -84,7 +84,7 @@ function ChallengeModal({
   function checkAnswer(array) {
     try {
       const rightCard = array.find((card) => {
-        return card.text === challenge.challenge.answer;
+        return card.id === challenge.challenge.answer;
       });
       if (rightCard) {
         console.log(rightCard, "right card");
