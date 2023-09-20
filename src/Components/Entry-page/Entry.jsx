@@ -81,25 +81,48 @@ function Entry({
 
   function distributeCards(num) {
     const types = Array.from(new Set(cards.map((card) => card.type)));
-
     let output = [];
+
+    // Create a deep copy of the cards array to manipulate without affecting the original
+    let cardsCopy = JSON.parse(JSON.stringify(cards));
+
     const baseCount = Math.floor(num / types.length);
     const extraCount = num % types.length;
 
     for (const type of types) {
-      const cardsOfType = cards.filter((card) => card.type === type);
+      let cardsOfType = cardsCopy.filter((card) => card.type === type);
+
+      if (cardsOfType.length < baseCount) {
+        // Handle error: Not enough unique cards of this type to distribute
+        console.error(`Not enough unique cards of type ${type} to distribute`);
+        return;
+      }
+
       for (let i = 0; i < baseCount; i++) {
         const randomIndex = Math.floor(Math.random() * cardsOfType.length);
-        output.push(cardsOfType[randomIndex]);
+        const chosenCard = cardsOfType.splice(randomIndex, 1)[0];
+        output.push(chosenCard);
       }
     }
 
+    // Shuffle the types array
     const shuffledTypes = [...types].sort(() => Math.random() - 0.5);
+
     for (let i = 0; i < extraCount; i++) {
       const extraType = shuffledTypes[i];
-      const extraCards = cards.filter((card) => card.type === extraType);
+      let extraCards = cardsCopy.filter((card) => card.type === extraType);
+
+      if (extraCards.length === 0) {
+        // Handle error: No unique cards of this type left to distribute
+        console.error(
+          `No unique cards of type ${extraType} left to distribute`
+        );
+        return;
+      }
+
       const randomIndex = Math.floor(Math.random() * extraCards.length);
-      output.push(extraCards[randomIndex]);
+      const chosenCard = extraCards.splice(randomIndex, 1)[0];
+      output.push(chosenCard);
     }
 
     setCards(output);
