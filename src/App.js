@@ -11,9 +11,12 @@ import { io } from "socket.io-client";
 
 export const myContext = createContext();
 
-export const socket = io("https://goldratt-game-backend-b59e7473f870.herokuapp.com/", {
-  transports: ["websocket"],
-});
+export const socket = io(
+  "https://goldratt-game-backend-b59e7473f870.herokuapp.com/",
+  {
+    transports: ["websocket"],
+  }
+);
 
 function App() {
   const [cards, setCards] = useState(false);
@@ -41,6 +44,15 @@ function App() {
 
   function joinRoom(data) {
     socket.emit("join-room", data);
+    setTimeout(() => {
+      if (localStorage.getItem("gameId") && localStorage.getItem("userId")) {
+        socket.emit(
+          "leave-room",
+          localStorage.getItem("gameId"),
+          localStorage.getItem("userId")
+        );
+      }
+    }, 3600000);
   }
 
   function updateScore(newScore) {
@@ -55,7 +67,7 @@ function App() {
   function UpdateChestsLanded() {
     setChestsLanded((prev) => {
       const newChestsLanded = prev + 1;
-      socket.emit("update-chests-landed",userId, newChestsLanded, gameId);
+      socket.emit("update-chests-landed", userId, newChestsLanded, gameId);
       return newChestsLanded;
     });
   }
@@ -66,6 +78,8 @@ function App() {
       localStorage.getItem("gameId"),
       localStorage.getItem("userId")
     );
+    localStorage.removeItem("gameId");
+    localStorage.removeItem("userId");
   }
 
   function finishedGamed() {
