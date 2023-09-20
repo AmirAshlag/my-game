@@ -238,7 +238,7 @@ function ChallengeModal({
             )}
           </div>
         ) : (
-          <div>
+          <div className="modal-top2">
             <h3 className="take-card-title">
               Would you like to take an extra Card for the{" "}
               {box.nextChallengeType} challenge at the cost of +2 turnes?
