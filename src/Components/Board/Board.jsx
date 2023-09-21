@@ -37,16 +37,10 @@ function Board({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("refreshed") || !myCards) {
+    if (!myCards) {
       leaveRoom();
       navigate("/");
-    } else {
-      localStorage.setItem("refreshed", true);
-    }
-
-    return () => {
-      localStorage.removeItem("refreshed");
-    };
+    } 
     // eslint-disable-next-line
   }, []);
 

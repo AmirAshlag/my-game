@@ -44,6 +44,7 @@ function App() {
 
   function joinRoom(data) {
     socket.emit("join-room", data);
+
     setTimeout(() => {
       if (localStorage.getItem("gameId") && localStorage.getItem("userId")) {
         socket.emit(
@@ -94,7 +95,7 @@ function App() {
 
   socket.on("disconnect", () => {
     console.log("disconnected");
-    window.location.href = "/game";
+    window.location.href = "/";
     leaveRoom();
   });
 

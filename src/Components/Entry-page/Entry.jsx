@@ -28,7 +28,6 @@ function Entry({
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("refreshed");
     leaveRoom();
     // eslint-disable-next-line
   }, []);
