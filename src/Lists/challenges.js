@@ -16,7 +16,7 @@ const challengesList = [
   },
   {
     type: "Immigration",
-    text: "You need a visa to enter (A4).",
+    text: "You are standing at the diplomatic visa line by mistake (A4).",
     answer: "A4",
   },
   {
@@ -36,7 +36,7 @@ const challengesList = [
   },
   {
     type: "Luggage",
-    text: "Your luggage exceeds weight limit (B4).",
+    text: "You are standing by the wrong belt (B4).",
     answer: "B4",
   },
   {
@@ -96,7 +96,7 @@ const challengesList = [
   },
   {
     type: "Terminal",
-    text: "Your flight is delayed or canceled (E4).",
+    text: "You waited too long to board - check in your carry on at the gate (E4).",
     answer: "E4",
   },
 ];

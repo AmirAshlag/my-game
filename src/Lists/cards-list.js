@@ -7,8 +7,12 @@ const cards = [
     id: "A2",
     text: "You have a note with destination address",
   },
-  { type: "Immigration", id: "A3", text: "You have a valid visa" },
-  { type: "Immigration", id: "A4", text: "You have a valid visa" },
+  { type: "Immigration", id: "A3", text: "You have an invitation letter" },
+  {
+    type: "Immigration",
+    id: "A4",
+    text: "You know to go to the visitors line",
+  },
 
   {
     type: "Luggage",
@@ -21,7 +25,11 @@ const cards = [
     text: "You kept your luggage barcode sticker ID with your passport",
   },
   { type: "Luggage", id: "B3", text: "You made sure luggage will not torn up" },
-  { type: "Luggage", id: "B4", text: "You weighed your bags" },
+  {
+    type: "Luggage",
+    id: "B4",
+    text: "You look at the screens to validate your flight's luggage pick up belt",
+  },
 
   { type: "Customs", id: "C1", text: "You know the limit for import goods" },
   {
@@ -60,7 +68,11 @@ const cards = [
     id: "E3",
     text: "You had verified your gate of departure",
   },
-  { type: "Terminal", id: "E4", text: "You checked flight status" },
+  {
+    type: "Terminal",
+    id: "E4",
+    text: "You board early to ensure space for your carry-on",
+  },
 ];
 
 export default cards;
