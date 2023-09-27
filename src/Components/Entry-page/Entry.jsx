@@ -37,10 +37,10 @@ function Entry({
       gameId.length == 5 &&
       userName &&
       userCards.length > 0 &&
-      userCards.length < 16
+      userCards.length < 21
     ) {
-      console.log(userCards);
-      console.log(cardsAmount > 0 && cardsAmount < 16, "check");
+      // console.log(userCards);
+      // console.log(cardsAmount > 0 && cardsAmount < 21, "check");
       const id = nanoid();
       setUserId(id);
       joinRoom({
@@ -168,11 +168,11 @@ function Entry({
         </div>
         <div className="input-group">
           <input
-            max={15}
+            max={20}
             min={1}
             type="number"
             id="game-input"
-            placeholder="select cards amount 1-15"
+            placeholder="select cards amount 1-20"
             disabled={selectedCards.length}
             onChange={(e) => {
               setCardsAmount(e.target.value);
@@ -193,7 +193,7 @@ function Entry({
             <button
               className="submit-btn"
               onClick={() => {
-                if (cardsAmount > 0 && cardsAmount < 16) {
+                if (cardsAmount > 0 && cardsAmount < 21) {
                   setCardsError(false);
                   distributeCards(cardsAmount);
                 } else {
@@ -208,7 +208,7 @@ function Entry({
         <div className="error-container">
           {cardsError && (
             <div className="error-message">
-              Please select 1-15 cards and click on Go
+              Please select 1-20 cards and click on Go
             </div>
           )}
           {idError && (
