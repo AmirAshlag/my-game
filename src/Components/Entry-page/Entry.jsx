@@ -101,6 +101,10 @@ function Entry({
         const randomIndex = Math.floor(Math.random() * cardsOfType.length);
         const chosenCard = cardsOfType.splice(randomIndex, 1)[0];
         output.push(chosenCard);
+
+        // Remove the chosen card from cardsCopy
+        const cardCopyIndex = cardsCopy.indexOf(chosenCard);
+        cardsCopy.splice(cardCopyIndex, 1);
       }
     }
 
@@ -122,6 +126,10 @@ function Entry({
       const randomIndex = Math.floor(Math.random() * extraCards.length);
       const chosenCard = extraCards.splice(randomIndex, 1)[0];
       output.push(chosenCard);
+
+      // Remove the chosen card from cardsCopy
+      const cardCopyIndex = cardsCopy.indexOf(chosenCard);
+      cardsCopy.splice(cardCopyIndex, 1);
     }
 
     setCards(output);
