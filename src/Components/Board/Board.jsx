@@ -157,7 +157,7 @@ function Board({
       setDisabledDice(false);
       clearInterval(interval);
       // console.log("resolved timeout");
-    }, number * 500);
+    }, number * 500 + 100);
   }
 
   return (
