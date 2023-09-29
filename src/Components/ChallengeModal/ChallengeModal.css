@@ -38,12 +38,13 @@
 }
 
 .modal-top {
-  height: 320px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 30px;
   align-items: center;
+  text-align: center;
 }
 
 .challenge-text {
@@ -152,6 +153,7 @@
 .arrow-exit {
   font-size: 80px;
   cursor: grab;
+  animation: growShrink 2s infinite;
 }
 
 /* Styling for Yes Button */
@@ -211,4 +213,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@keyframes growShrink {
+  0%,
+  100% {
+    transform: scale(1); /* Original size */
+  }
+  50% {
+    transform: scale(1.1); /* Grown size (you can adjust this value) */
+  }
 }
