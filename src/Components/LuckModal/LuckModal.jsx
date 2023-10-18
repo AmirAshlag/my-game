@@ -6,8 +6,7 @@ import "./LuckModal.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CardModal() {
-  const { cards, setCards } =
-    useContext(myContext);
+  const { cards, setCards } = useContext(myContext);
   const [givenCard, setGivenCard] = useState("");
   const location = useLocation();
   const { turnsleft, box, questionType } = location.state;
@@ -28,14 +27,17 @@ export default function CardModal() {
       setGivenCard([selectedCard]);
     } else if (questionType === "complete") {
       const randomNumberOfCards = Math.floor(
-        1 + Math.random() * missingCards.length
+        1 + Math.random() * (missingCards.length - 1)
       );
+      console.log("randomNumberOfCards", randomNumberOfCards);
       const selectedCards = [];
+      const missingCardsCopy = [...missingCards];
 
       for (let i = 0; i < randomNumberOfCards; i++) {
-        const randomIndex = Math.floor(Math.random() * missingCards.length);
-        const selectedCard = missingCards[randomIndex];
+        const randomIndex = Math.floor(Math.random() * missingCardsCopy.length);
+        const selectedCard = missingCardsCopy[randomIndex];
         selectedCards.push(selectedCard);
+        missingCardsCopy.splice(randomIndex, 1);
       }
 
       setGivenCard(selectedCards);
