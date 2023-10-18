@@ -90,24 +90,6 @@
   transform: scale(1.05);
 }
 
-.Immigration {
-  background-color: #6b5b95;
-}
-.Luggage {
-  background-color: #028a0f;
-}
-
-.Customs {
-  background-color: #ff7f11;
-}
-
-.Security {
-  background-color: #1477b2;
-}
-.Terminal {
-  background-color: gold;
-}
-
 .glow {
   animation: fadeIn 1s ease-out;
 }

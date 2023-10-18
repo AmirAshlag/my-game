@@ -5,7 +5,7 @@ import "./SpecialSpots.css";
 function Question({ userLocation, box, i }) {
 
   return (
-    <div className={["box2", box.type].join(" ")}>
+    <div className={["box2"].join(" ")}>
       <img src={box.imgurl} alt="" className="question-img" />
       {userLocation === i && <FontAwesomeIcon icon={faUser} className="user" />}
     </div>
