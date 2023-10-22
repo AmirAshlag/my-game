@@ -159,7 +159,7 @@ function ChallengeModal({
     // console.log(turnsleft, "left-challenge");
     if (challenge.type === "Terminal") {
       finishedGamed();
-      navigate("/results");
+      navigate("/results/leaderBoard");
     } else {
       // change back to turnsleft to make it work
       navigate("/game", {

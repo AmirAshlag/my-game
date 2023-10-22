@@ -41,6 +41,14 @@
 .given-cards {
   display: flex;
   justify-content: space-around;
+  width: 80%;
+  padding: 0 10%;
+  /* gap: 20px; */
+}
+
+.given-cards2 {
+  display: flex;
+  justify-content: space-around;
   width: 100%;
   gap: 20px;
 }

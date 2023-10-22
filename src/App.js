@@ -7,7 +7,8 @@ import ChallengeModal from "./Components/ChallengeModal/ChallengeModal";
 import LuckModal from "./Components/LuckModal/LuckModal";
 import FinalPage from "./Components/Final-page/FinalPage";
 import { io } from "socket.io-client";
-// import { useEffect } from "react";
+import FinalLeaderBoard from "./Components/Final-page/FinalLeaderBoard/FinalLeaderBoard";
+import Statistics from "./Components/Final-page/Statistics/Statistics";
 
 export const myContext = createContext();
 
@@ -166,7 +167,10 @@ function App() {
             element={
               <FinalPage getScoreBoard={getScoreBoard} leaveRoom={leaveRoom} />
             }
-          />
+          >
+            <Route path="leaderBoard" element={<FinalLeaderBoard />} />
+            <Route path="statistics" element={<Statistics />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </myContext.Provider>

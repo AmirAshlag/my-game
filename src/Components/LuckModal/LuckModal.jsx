@@ -27,7 +27,7 @@ export default function CardModal() {
       setGivenCard([selectedCard]);
     } else if (questionType === "complete") {
       const randomNumberOfCards = Math.floor(
-        1 + Math.random() * (missingCards.length - 1)
+        1 + Math.random() * missingCards.length
       );
       console.log("randomNumberOfCards", randomNumberOfCards);
       const selectedCards = [];
@@ -103,7 +103,11 @@ export default function CardModal() {
             )}
             <div>
               {Array.isArray(givenCard) && (
-                <div className="given-cards">
+                <div
+                  className={
+                    givenCard.length > 2 ? "given-cards2" : "given-cards"
+                  }
+                >
                   {givenCard.map((card) => {
                     return (
                       <span key={card.id}>

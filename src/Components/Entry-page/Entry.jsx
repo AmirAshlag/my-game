@@ -4,9 +4,7 @@ import Card from "../Card/Card";
 import { useState, useContext, useEffect } from "react";
 import { myContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import { nanoid } from "nanoid";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function Entry({
   setScore,
@@ -39,8 +37,6 @@ function Entry({
       userCards.length > 0 &&
       userCards.length < 21
     ) {
-      // console.log(userCards);
-      // console.log(cardsAmount > 0 && cardsAmount < 21, "check");
       const id = nanoid();
       setUserId(id);
       joinRoom({
