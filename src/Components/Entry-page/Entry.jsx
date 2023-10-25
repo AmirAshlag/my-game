@@ -32,7 +32,7 @@ function Entry({
 
   function startGame() {
     if (
-      gameId.length == 5 &&
+      gameId.length === 5 &&
       userName &&
       userCards.length > 0 &&
       userCards.length < 21
@@ -175,7 +175,7 @@ function Entry({
             max={20}
             min={1}
             type="number"
-            id="game-input"
+            id="number-input"
             placeholder="select cards amount 1-20"
             disabled={selectedCards.length}
             onChange={(e) => {

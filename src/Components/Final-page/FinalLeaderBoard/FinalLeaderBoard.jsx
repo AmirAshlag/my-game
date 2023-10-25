@@ -11,6 +11,22 @@ function FinalLeaderBoard() {
       <div className="full-leaderboard-header">
         <h2>Leaderboard</h2>
       </div>
+      <div className="game-averages">
+        <span className="Game-numbers-title">Game-numbers</span>
+        <span>Players: {usersList.length}</span>
+        <span>
+          Average cards taken:{" "}
+          {usersList.reduce((accumulator, player) => {
+            return accumulator + player.initialCards;
+          }, 0) / usersList.length}
+        </span>
+        <span>
+          average score:{" "}
+          {usersList.reduce((accumulator, player) => {
+            return accumulator + player.score;
+          }, 0) / usersList.length}
+        </span>
+      </div>
       <div className="full-leaderboard-body">
         {usersList
           .filter((user) => {

@@ -2,11 +2,11 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 90%; 
-  max-width: 1200px; 
-  max-height: 90vh; 
-  margin: 5% auto; 
-  overflow-y: auto; 
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  margin: 5% auto;
+  overflow-y: auto;
 }
 
 .full-leaderboard-header {
@@ -43,8 +43,8 @@
 }
 
 .stats-holder {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 /* Reset some default styles */
@@ -56,36 +56,35 @@
 
 /* Navbar styles */
 .navbar {
-    background-color: #f36;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 25px;
-    color: white;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f36;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 25px;
+  color: white;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar h1 {
-    margin: 0;
+  margin: 0;
 }
 
 .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
 
 .navbar-menu li {
-    padding: 0;
+  padding: 0;
 }
 
 .navbar-menu a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
-
 
 /* @media (max-width: 768px) {
     .navbar {
@@ -111,4 +110,17 @@
   height: 80vh;
   margin-left: 10vw; /* Add margin to the right */
   margin-top: 20px; /* Add margin to the top */
+}
+
+.game-averages {
+  padding: 10px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.25);
+  display: flex;
+  gap: 30px;
+  align-items: flex-end;
+}
+
+.Game-numbers-title {
+  font-weight: bold;
+  font-size: large;
 }
