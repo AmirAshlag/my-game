@@ -21,7 +21,7 @@ function FinalLeaderBoard() {
           }, 0) / usersList.length}
         </span>
         <span>
-          average score:{" "}
+          Average score:{" "}
           {usersList.reduce((accumulator, player) => {
             return accumulator + player.score;
           }, 0) / usersList.length}
