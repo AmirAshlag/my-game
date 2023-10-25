@@ -16,15 +16,19 @@ function FinalLeaderBoard() {
         <span>Players: {usersList.length}</span>
         <span>
           Average cards taken:{" "}
-          {usersList.reduce((accumulator, player) => {
-            return accumulator + player.initialCards;
-          }, 0) / usersList.length}
+          {(
+            usersList.reduce((accumulator, player) => {
+              return accumulator + player.initialCards;
+            }, 0) / usersList.length
+          ).toFixed(2)}
         </span>
         <span>
           Average score:{" "}
-          {usersList.reduce((accumulator, player) => {
-            return accumulator + player.score;
-          }, 0) / usersList.length}
+          {(
+            usersList.reduce((accumulator, player) => {
+              return accumulator + player.score;
+            }, 0) / usersList.length
+          ).toFixed(2)}
         </span>
       </div>
       <div className="full-leaderboard-body">
