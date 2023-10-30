@@ -24,12 +24,12 @@ function Statistics() {
   const [chartData, setChartData] = useState({
     datasets: [
       {
-        label: "Turns",
+        label: "Score",
         data: usersList
           .filter((user) => user.finished === true)
           .map((user) => ({
             x: user.initialCards, // Cards Started With
-            y: user.score, // Average Turns
+            y: user.score, // Average Score
           })),
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
@@ -59,7 +59,7 @@ function Statistics() {
           borderWidth: 1,
         },
         {
-          label: "Average Turns",
+          label: "Average score",
           data: labelRanges.map((range) => {
             const [min, max] = range.split("-").map(Number);
             const relevantUsers = usersList.filter(
@@ -95,7 +95,7 @@ function Statistics() {
       y: {
         title: {
           display: true,
-          text: "Average Turns",
+          text: "Average score",
         },
       },
     },

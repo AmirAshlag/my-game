@@ -13,21 +13,27 @@ function FinalLeaderBoard() {
       </div>
       <div className="game-averages">
         <span className="Game-numbers-title">Game-numbers</span>
-        <span>Players: {usersList.length}</span>
+        <span>
+          Players: {usersList.filter((user) => user.finished === true).length}
+        </span>
         <span>
           Average cards taken:{" "}
           {(
-            usersList.reduce((accumulator, player) => {
-              return accumulator + player.initialCards;
-            }, 0) / usersList.length
+            usersList
+              .filter((user) => user.finished === true)
+              .reduce((accumulator, player) => {
+                return accumulator + player.initialCards;
+              }, 0) / usersList.filter((user) => user.finished === true).length
           ).toFixed(2)}
         </span>
         <span>
           Average score:{" "}
           {(
-            usersList.reduce((accumulator, player) => {
-              return accumulator + player.score;
-            }, 0) / usersList.length
+            usersList
+              .filter((user) => user.finished === true)
+              .reduce((accumulator, player) => {
+                return accumulator + player.score;
+              }, 0) / usersList.filter((user) => user.finished === true).length
           ).toFixed(2)}
         </span>
       </div>
@@ -42,7 +48,7 @@ function FinalLeaderBoard() {
                 {index + 1}. {user.userName}
               </p>
               <div className="stats-holder">
-                <p>Turnes: {user.score}</p>
+                <p>Time score: {user.score}</p>
                 <p>Initial-cards: {user.initialCards}</p>
                 <p>Chests-landed: {user.chestsLanded}</p>
               </div>

@@ -168,7 +168,7 @@ function Board({
           <div className="top-container">
             {location.pathname === "/game" && (
               <h2>
-                Turnes: {score}{" "}
+                Time score: {score}{" "}
                 {scoreAdded !== 0 && scoreAddedByRoll === 0 && (
                   <span className="fade-out">+({scoreAdded})</span>
                 )}
@@ -184,7 +184,6 @@ function Board({
               disabledDice={disabledDice}
               setDisabledDice={setDisabledDice}
             />
-            {/* <Leaderboard/> */}
             <div></div>
           </div>
           <div className="board">
