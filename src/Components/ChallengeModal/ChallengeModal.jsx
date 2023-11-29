@@ -87,6 +87,9 @@ function ChallengeModal({
         return card.id === challenge.challenge.answer;
       });
       if (rightCard) {
+        setRelevantCards((prev) =>
+          {return prev.filter((card) => card.type !== "Free-Pass")}
+        );
         console.log(rightCard, "right card");
         setNewCards((prevCards) =>
           prevCards.filter((card) => card.id !== rightCard.id)
@@ -144,7 +147,7 @@ function ChallengeModal({
     if (card) {
       updateScore(score + 2);
     } else {
-      updateScore(score)
+      updateScore(score);
     }
     let finalCards = [
       ...cards.filter((card) => card.id !== answer.id),
@@ -164,7 +167,7 @@ function ChallengeModal({
       // change back to turnsleft to make it work
       navigate("/game", {
         state: {
-          turnsleft: 0,
+          turnsleft: turnsleft,
         },
       });
     }
@@ -230,38 +233,43 @@ function ChallengeModal({
                 icon={faPersonWalkingArrowRight}
                 className="arrow-exit"
                 onClick={
-                  box.nextChallengeType && nextChallengeMissingCards.length
-                    ? () => changeShowChallenge()
-                    : () => exitChallenge(false)
+                  // box.nextChallengeType && nextChallengeMissingCards.length
+                  //   ? () => changeShowChallenge() :
+                  () => {
+                    setTimeout(() => {
+                      exitChallenge(false);
+                    }, 230);
+                  }
                 }
               />
             )}
           </div>
         ) : (
-          <div className="modal-top2">
-            <h3 className="take-card-title">
-              Would you like to take an extra Card for the{" "}
-              {box.nextChallengeType} challenge at the cost of +2 turnes?
-            </h3>
-            <div className="take-card-button-container">
-              <button
-                onClick={takeNextChallengeCard}
-                className="yes-button"
-                disabled={disableButtons}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => {
-                  exitChallenge(false);
-                }}
-                className="no-button"
-                disabled={disableButtons}
-              >
-                No
-              </button>
-            </div>
-          </div>
+          <></>
+          // <div className="modal-top2">
+          //   <h3 className="take-card-title">
+          //     Would you like to take an extra Card for the{" "}
+          //     {box.nextChallengeType} challenge at the cost of +2 turnes?
+          //   </h3>
+          //   <div className="take-card-button-container">
+          //     <button
+          //       onClick={takeNextChallengeCard}
+          //       className="yes-button"
+          //       disabled={disableButtons}
+          //     >
+          //       Yes
+          //     </button>
+          //     <button
+          //       onClick={() => {
+          //         exitChallenge(false);
+          //       }}
+          //       className="no-button"
+          //       disabled={disableButtons}
+          //     >
+          //       No
+          //     </button>
+          //   </div>
+          // </div>
         )}
         <div className="modal-cards">
           {relevantCards &&

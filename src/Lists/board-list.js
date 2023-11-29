@@ -17,12 +17,6 @@ const boardList = [
     questionType: "complete",
   },
   true,
-  // {
-  //   question: true,
-  //   imgurl: plusOne,
-  //   type: "Immigration",
-  //   questionType: "+1",
-  // },
   true,
   true,
   {
@@ -48,15 +42,8 @@ const boardList = [
   false,
   false,
   false,
-  // { question: true, imgurl: plusOne, type: "Customs", questionType: "+1" },
-
   true,
-  // {
-  //   question: true,
-  //   imgurl: plusOne,
-  //   type: "Security",
-  //   questionType: "+1",
-  // },
+
   {
     question: true,
     imgurl: treasure,
@@ -87,7 +74,6 @@ const boardList = [
     nextChallengeType: "Customs",
   },
   true,
-  // { question: true, imgurl: plusOne, type: "Luggage", questionType: "+1" },
   true,
   false,
   false,
@@ -114,12 +100,6 @@ const boardList = [
     questionType: "complete",
   },
   true,
-  // {
-  //   question: true,
-  //   imgurl: plusOne,
-  //   type: "Terminal",
-  //   questionType: "+1",
-  // },
   true,
   true,
   true,
@@ -132,3 +112,24 @@ const boardList = [
 ];
 
 export default boardList;
+
+// {
+//   question: true,
+//   imgurl: plusOne,
+//   type: "Immigration",
+//   questionType: "+1",
+// },
+// {
+//   question: true,
+//   imgurl: plusOne,
+//   type: "Terminal",
+//   questionType: "+1",
+// },
+// { question: true, imgurl: plusOne, type: "Luggage", questionType: "+1" },
+// {
+//   question: true,
+//   imgurl: plusOne,
+//   type: "Security",
+//   questionType: "+1",
+// },
+// { question: true, imgurl: plusOne, type: "Customs", questionType: "+1" },

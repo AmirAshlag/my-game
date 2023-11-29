@@ -74,13 +74,24 @@ function Entry({
     }
   }
 
+  function getRandomNumberInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   function distributeCards(num) {
     const types = Array.from(new Set(cards.map((card) => card.type)));
     let output = [];
 
     // Create a deep copy of the cards array to manipulate without affecting the original
     let cardsCopy = JSON.parse(JSON.stringify(cards));
-
+    for (let index = 0; index < num; index++) {
+      const randomNumber = getRandomNumberInRange(1, 21 - index);
+      if (randomNumber === 1) {
+        output.push({ type: "Free-Pass", id: "F1", text: "Free Pass" });
+        num -= 1;
+        break;
+      }
+    }
     const baseCount = Math.floor(num / types.length);
     const extraCount = num % types.length;
 
@@ -176,7 +187,7 @@ function Entry({
             min={1}
             type="number"
             id="number-input"
-            placeholder="select cards amount 1-20"
+            placeholder="select cards amount"
             disabled={selectedCards.length}
             onChange={(e) => {
               setCardsAmount(e.target.value);
@@ -185,6 +196,7 @@ function Entry({
           />
           {selectedCards.length ? (
             <button
+              disabled
               className="submit-btn"
               onClick={() => {
                 setSelectedCards([]);

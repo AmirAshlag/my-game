@@ -73,11 +73,10 @@ const cards = [
     id: "E4",
     text: "You board early to ensure space for your carry-on",
   },
+  // { type: "Free-Pass", id: "F1", text: "Free Pass" },
 ];
 
 export default cards;
-
-// { type: "Free-Pass", id: "F1", text: "Free Pass" },
 // { type: "Free-Pass", id: "F2", text: "Free Pass" },
 //   { type: "Immigration", id: "FPA", text: "Free Pass" },
 //   { type: "Luggage", id: "FPB", text: "Free Pass" },

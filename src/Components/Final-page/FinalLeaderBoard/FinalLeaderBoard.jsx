@@ -36,6 +36,24 @@ function FinalLeaderBoard() {
               }, 0) / usersList.filter((user) => user.finished === true).length
           ).toFixed(2)}
         </span>
+        <span>
+          Didn't exceed 30:{" "}
+          {
+            (
+              (usersList.filter(
+                (user) => user.finished === true && user.score < 31
+              ).length /
+                Math.max(
+                  1,
+                  usersList.filter((user) => user.finished === true).length
+                )) *
+              100
+            )
+              .toString()
+              .match(/^-?\d+(?:\.\d{0,2})?/)[0]
+          }
+          %
+        </span>
       </div>
       <div className="full-leaderboard-body">
         {usersList
