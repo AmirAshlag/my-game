@@ -11,22 +11,21 @@ import FinalLeaderBoard from "./Components/Final-page/FinalLeaderBoard/FinalLead
 import Statistics from "./Components/Final-page/Statistics/Statistics";
 
 export const myContext = createContext();
-
-export const socket = io(
-  "https://goldratt-game-backend-b59e7473f870.herokuapp.com/",
-  {
-    transports: ["websocket"],
-  }
-);
+// "https://goldratt-game-backend-b59e7473f870.herokuapp.com/" change back to this to make it work;
+export const socket = io("https://goldratt-game-backend-b59e7473f870.herokuapp.com/", {
+  transports: ["websocket"],
+});
 
 function App() {
   const [cards, setCards] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [chestsLanded, setChestsLanded] = useState(false);
   const [usedCards, setUsedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [scoreAdded, setScoreAdded] = useState(0);
   const [userId, setUserId] = useState("");
   const [gameId, setGameId] = useState("");
+  const [newGameId, setNewGameId] = useState(false);
   const [usersList, setUsersList] = useState([]);
 
   useEffect(() => {
@@ -42,6 +41,14 @@ function App() {
   socket.on("connect_error", (error) => {
     console.error("Connect Error", error);
   });
+
+  socket.on("new-roomId-generated", (newGameId) => {
+    setNewGameId(newGameId);
+  });
+
+  function getNewRoomId() {
+    socket.emit("get-new-roomId");
+  }
 
   function joinRoom(data) {
     socket.emit("join-room", data);
@@ -72,6 +79,10 @@ function App() {
       socket.emit("update-chests-landed", userId, newChestsLanded, gameId);
       return newChestsLanded;
     });
+  }
+
+  function RemovePlayer(gameId, userId) {
+    socket.emit("leave-room", gameId, userId);
   }
 
   function leaveRoom() {
@@ -112,6 +123,8 @@ function App() {
         updateScore,
         setScore,
         setScoreAdded,
+        isAdmin,
+        RemovePlayer,
       }}
     >
       <BrowserRouter>
@@ -129,6 +142,7 @@ function App() {
                 updateScore={updateScore}
                 UpdateChestsLanded={UpdateChestsLanded}
                 myCards={cards}
+                RemovePlayer={RemovePlayer}
               />
             }
           >
@@ -159,6 +173,9 @@ function App() {
                 setGameId={setGameId}
                 gameId={gameId}
                 leaveRoom={leaveRoom}
+                getNewRoomId={getNewRoomId}
+                newGameId={newGameId}
+                setIsAdmin={setIsAdmin}
               />
             }
           />

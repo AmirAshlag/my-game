@@ -14,13 +14,15 @@ function Entry({
   gameId,
   setGameId,
   leaveRoom,
+  getNewRoomId,
+  newGameId,
+  setIsAdmin,
 }) {
   const [selectedCards, setSelectedCards] = useState([]);
   const [cardsAmount, setCardsAmount] = useState("");
   const [cardsError, setCardsError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [idError, setIdError] = useState(false);
-  const [newGameId, setNewGameId] = useState(false);
   const [userName, setUserName] = useState("");
   const { setCards, cards: userCards } = useContext(myContext);
   const navigate = useNavigate();
@@ -50,6 +52,9 @@ function Entry({
       });
       localStorage.setItem("gameId", gameId);
       localStorage.setItem("userId", id);
+      if (gameId === newGameId) {
+        setIsAdmin(true)
+      }
       navigate("/game", {
         state: {
           turnsleft: false,
@@ -150,8 +155,7 @@ function Entry({
         <button
           className="create-btn"
           onClick={() => {
-            const id = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
-            setNewGameId(id);
+            getNewRoomId();
           }}
         >
           Create new game
@@ -167,6 +171,7 @@ function Entry({
               setUserName(e.target.value);
             }}
             value={userName}
+            maxLength="14"
           />
         </div>
         <div className="input-group">
