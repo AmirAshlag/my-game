@@ -18,7 +18,7 @@ function Leaderboard() {
                 <p>
                   {index + 1}. {user.userName}
                 </p>
-                <p>Time score: {user.score}</p>
+                <p>Turns Count: {user.score}</p>
               </div>
             )
         )}

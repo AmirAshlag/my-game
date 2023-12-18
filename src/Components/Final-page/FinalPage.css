@@ -28,7 +28,8 @@
 
 .full-leaderboard-item {
   border-bottom: 1px solid #eee;
-  padding: 10px 0;
+
+  /* padding: 10px 0; */
 }
 
 .full-leaderboard-item:last-child {
@@ -150,4 +151,10 @@
   display: flex;
   justify-content: space-between;
   padding: 0px 12px;
+  margin-left: 60px;
+}
+
+.team-averages {
+  display: flex;
+  gap: 20px;
 }

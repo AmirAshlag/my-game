@@ -168,7 +168,7 @@ function Board({
           <div className="top-container">
             {location.pathname === "/game" && (
               <h2>
-                Time score: {score}{" "}
+                Turnss Count: {score}{" "}
                 {scoreAdded !== 0 && scoreAddedByRoll === 0 && (
                   <span className="fade-out">+({scoreAdded})</span>
                 )}

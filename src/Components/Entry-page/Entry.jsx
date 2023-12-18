@@ -20,7 +20,9 @@ function Entry({
 }) {
   const [selectedCards, setSelectedCards] = useState([]);
   const [cardsAmount, setCardsAmount] = useState("");
+  const [teamNumber, setTeamNumber] = useState(false);
   const [cardsError, setCardsError] = useState(false);
+  const [teamError, setTeamError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [idError, setIdError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -28,6 +30,8 @@ function Entry({
   const navigate = useNavigate();
 
   useEffect(() => {
+    setTeamNumber(false)
+    setCards([]);
     leaveRoom();
     // eslint-disable-next-line
   }, []);
@@ -37,7 +41,9 @@ function Entry({
       gameId.length === 5 &&
       userName &&
       userCards.length > 0 &&
-      userCards.length < 21
+      userCards.length < 21 &&
+      teamNumber > 0 &&
+      teamNumber < 31
     ) {
       const id = nanoid();
       setUserId(id);
@@ -49,11 +55,12 @@ function Entry({
         initialCards: selectedCards.length,
         finished: false,
         chestsLanded: 0,
+        teamNumber: teamNumber,
       });
       localStorage.setItem("gameId", gameId);
       localStorage.setItem("userId", id);
       if (gameId === newGameId) {
-        setIsAdmin(true)
+        setIsAdmin(true);
       }
       navigate("/game", {
         state: {
@@ -76,6 +83,11 @@ function Entry({
       } else if (cardsError) {
         setCardsError(false);
       }
+       if (teamNumber < 1 || teamNumber > 30 || !teamNumber) {
+         setTeamError(true);
+       } else if (cardsError) {
+         setTeamError(false);
+       }
     }
   }
 
@@ -188,6 +200,20 @@ function Entry({
         </div>
         <div className="input-group">
           <input
+            max={30}
+            min={1}
+            type="number"
+            id="team-input"
+            placeholder=" Enter team number:"
+            className="input2"
+            onChange={(e) => {
+              setTeamNumber(e.target.value);
+            }}
+            value={teamNumber}
+          />
+        </div>
+        <div className="input-group">
+          <input
             max={20}
             min={1}
             type="number"
@@ -237,6 +263,9 @@ function Entry({
           )}
           {nameError && (
             <div className="error-message">please enter your name</div>
+          )}
+          {teamError && (
+            <div className="error-message">please enter valid team number</div>
           )}
         </div>
         <button

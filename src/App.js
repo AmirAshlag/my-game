@@ -12,9 +12,12 @@ import Statistics from "./Components/Final-page/Statistics/Statistics";
 
 export const myContext = createContext();
 // "https://goldratt-game-backend-b59e7473f870.herokuapp.com/" change back to this to make it work;
-export const socket = io("https://goldratt-game-backend-b59e7473f870.herokuapp.com/", {
-  transports: ["websocket"],
-});
+export const socket = io(
+  "https://goldratt-game-backend-b59e7473f870.herokuapp.com/",
+  {
+    transports: ["websocket"],
+  }
+);
 
 function App() {
   const [cards, setCards] = useState(false);

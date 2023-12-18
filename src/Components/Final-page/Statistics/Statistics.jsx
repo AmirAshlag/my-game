@@ -59,7 +59,7 @@ function Statistics() {
           borderWidth: 1,
         },
         {
-          label: "Average score",
+          label: "Average turns",
           data: labelRanges.map((range) => {
             const [min, max] = range.split("-").map(Number);
             const relevantUsers = usersList.filter(
@@ -95,7 +95,7 @@ function Statistics() {
       y: {
         title: {
           display: true,
-          text: "Average score",
+          text: "Average turns",
         },
       },
     },
